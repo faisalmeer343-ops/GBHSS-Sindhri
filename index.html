@@ -1,484 +1,471 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sd" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>Govt Boys HSS Sindhri · admin edit ready</title>
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts: Inter + Poppins (clean) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صديقي اٽو مل سسٽم</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
-            background: #f0f5fb;
-            font-family: 'Inter', sans-serif;
-            color: #1e2f3e;
-            padding: 18px 14px;
-        }
-        .dashboard {
-            max-width: 1500px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 42px 42px 32px 32px;
-            box-shadow: 0 30px 60px -15px #1e3a5f40;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-        /* header (first version style + HM prominence) */
-        .header {
-            background: linear-gradient(145deg, #0b2d4e, #123f64);
-            color: white;
-            padding: 24px 32px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 5px solid #f6b83e;
-        }
-        .header h1 {
-            font-weight: 700;
-            font-size: 2.1rem;
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .header h1 i {
-            background: #f6b83e;
-            color: #0b2d4e;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0;
             padding: 10px;
-            border-radius: 50%;
+            background-color: #f0f8ff;
+            color: #333;
         }
-        .hm-special {
-            background: #ffffff20;
-            backdrop-filter: blur(8px);
-            padding: 12px 32px 12px 24px;
-            border-radius: 60px;
-            border: 1px solid #f6b83e80;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-        .hm-special i {
-            font-size: 2rem;
-            color: #f9cf7a;
-        }
-        .hm-special span { color: white; }
-        .hm-special .hm-title {
-            background: #f6b83e;
-            color: #0b2d4e;
-            padding: 4px 14px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-        /* navigation bar */
-        .nav-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
+        .container {
+            max-width: 100%;
             background: white;
-            padding: 14px 26px;
-            border-bottom: 1px solid #dee9f2;
-            position: sticky;
-            top: 0;
-            z-index: 99;
-            box-shadow: 0 8px 16px -8px #b3c9df;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .nav-btn {
-            background: transparent;
-            border: none;
-            padding: 12px 22px;
-            font-weight: 600;
-            font-size: 1rem;
-            border-radius: 50px;
-            color: #1c405e;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: 0.2s;
-            white-space: nowrap;
-            border: 1px solid transparent;
-        }
-        .nav-btn i { color: #1f4b73; font-size: 1.2rem; }
-        .nav-btn:hover {
-            background: #e5eefb;
-            border-color: #b8d1ed;
-        }
-        .nav-btn.active {
-            background: #0b2d4e;
-            color: white;
-            box-shadow: 0 10px 20px #0b2d4e40;
-        }
-        .nav-btn.active i { color: #f6d88c; }
-        /* panels */
-        .panel {
-            display: none;
-            padding: 28px 30px;
-            background: #ffffff;
-        }
-        .panel.active-panel { display: block; }
-        /* edit bar — appears inside each panel */
-        .edit-controls {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 24px;
-            gap: 12px;
-        }
-        .edit-btn {
-            background: #f8fafd;
-            border: 2px solid #cadef0;
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: 600;
-            color: #1d486b;
-            cursor: pointer;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .edit-btn i { color: #f6b83e; }
-        .edit-btn:hover { background: #e2ecf9; border-color: #a1bedd; }
-        .save-btn {
-            background: #1d6f3c;
-            border: none;
-            color: white;
-            padding: 10px 30px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        /* cards etc (first version style) */
-        .card {
-            background: #f9fbfe;
-            border-radius: 32px;
-            padding: 24px;
-            box-shadow: 0 6px 20px #dce7f3;
-            border: 1px solid white;
-            margin-bottom: 26px;
-        }
-        .card-title {
-            font-weight: 700;
-            font-size: 1.8rem;
-            font-family: 'Poppins', sans-serif;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-left: 8px solid #f6b83e;
-            padding-left: 20px;
-        }
-        .grid-2, .grid-3 {
-            display: grid;
-            gap: 24px;
-        }
-        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
-        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
-        /* staff grid (beautiful) */
-        .staff-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 18px;
-        }
-        .staff-card {
-            background: white;
-            border-radius: 28px;
-            padding: 24px 12px 16px;
+        h1, h2 {
+            color: #2c3e50;
             text-align: center;
-            border: 1px solid #e3ecf5;
-            transition: 0.2s;
-            box-shadow: 0 6px 14px #c1d6ec50;
+            margin: 10px 0;
         }
-        .staff-card.hm-highlight {
-            background: #fff6e5;
-            border: 2px solid #f6b83e;
-            transform: scale(1.02);
-        }
-        .staff-img {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(145deg, #d2e2f5, #ecf3fc);
-            border-radius: 50%;
-            margin: 0 auto 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: #1e4a76;
-            border: 4px solid white;
-        }
-        .staff-name { font-weight: 700; }
-        .staff-post { color: #1e4a76; font-weight: 500; }
-        /* notice item */
-        .notice-item {
-            background: white;
-            padding: 18px 24px;
-            border-radius: 60px;
+        .form-group {
             margin-bottom: 12px;
-            border-left: 8px solid #f6b83e;
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            font-weight: 500;
-            box-shadow: 0 2px 12px #dbe6f1;
         }
-        .filename-tip {
-            background: #1d3d5e;
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #27ae60;
             color: white;
-            padding: 10px 24px;
-            border-radius: 60px;
-            display: inline-block;
-            font-weight: 500;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            font-size: 16px;
         }
-        .zero-badge {
-            background: #f2f7ff;
-            border-radius: 60px;
-            padding: 26px;
+        button:hover {
+            background: #219653;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
             text-align: center;
-            border: 3px dashed #acc6e3;
-            font-size: 1.2rem;
         }
-        /* mobile */
-        @media (max-width:600px) {
-            .header { flex-direction: column; align-items: start; }
-            .nav-bar { flex-wrap: nowrap; overflow-x: auto; }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        .tabs {
+            display: flex;
+            overflow-x: auto;
+            margin-bottom: 15px;
+            background: #ecf0f1;
+            border-radius: 5px;
+        }
+        .tab {
+            padding: 10px 15px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .tab.active {
+            background: #3498db;
+            color: white;
+            border-radius: 5px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @media (max-width: 600px) {
+            th, td {
+                padding: 6px 3px;
+                font-size: 12px;
+            }
+            .tab {
+                padding: 8px 10px;
+            }
         }
     </style>
 </head>
 <body>
-<div class="dashboard">
-    <!-- header with HM prominent (like first version but better) -->
-    <div class="header">
-        <h1><i class="fas fa-school"></i> Govt Boys HSS Sindhri</h1>
-        <div class="hm-special">
-            <i class="fas fa-star"></i>
-            <span>Mr. Mir Muhammad Siddiqi</span>
-            <span class="hm-title">Head Master</span>
+    <div class="container">
+        <h1>صديقي اٽو مل سسٽم</h1>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="openTab('customer')">گيراھڪ</div>
+            <div class="tab" onclick="openTab('expense')">خرچ</div>
+            <div class="tab" onclick="openTab('report')">رپورٽ</div>
+        </div>
+        
+        <!-- گيراھڪ جو ٽيب -->
+        <div id="customer" class="tab-content active">
+            <h2>نئون گيراھڪ</h2>
+            <div class="form-group">
+                <label for="name">نالو:</label>
+                <input type="text" id="name" placeholder="گيراھڪ جو نالو">
+            </div>
+            <div class="form-group">
+                <label for="contact">رابطو:</label>
+                <input type="text" id="contact" placeholder="فون نمبر">
+            </div>
+            <div class="form-group">
+                <label for="wheatDate">ڪڻڪ جمع ڪرڻ جي تاريخ:</label>
+                <input type="date" id="wheatDate">
+            </div>
+            <div class="form-group">
+                <label for="wheat">ڪڻڪ (ڪلو):</label>
+                <input type="number" id="wheat" placeholder="ڪڻڪ جو مقدار">
+            </div>
+            <button onclick="addCustomer()">محفوظ ڪريو</button>
+            
+            <h2>اٽو واپس وٺڻ</h2>
+            <div class="form-group">
+                <label for="customerId">گيراھڪ ID:</label>
+                <input type="number" id="customerId" placeholder="گيراھڪ جو نمبر">
+            </div>
+            <div class="form-group">
+                <label for="aataDate">اٽو وٺڻ جي تاريخ:</label>
+                <input type="date" id="aataDate">
+            </div>
+            <div class="form-group">
+                <label for="aataTaken">اٽو (ڪلو):</label>
+                <input type="number" id="aataTaken" placeholder="وٺيل اٽو">
+            </div>
+            <button onclick="takeAata()">اٽو رڪارڊ ڪريو</button>
+            
+            <h2>گيراھڪن جو ريڪارڊ</h2>
+            <div style="overflow-x:auto;">
+                <table id="customerTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <thنالو</th>
+                            <th>رابطو</th>
+                            <th>ڪڻڪ تاريخ</th>
+                            <th>ڪڻڪ (ڪلو)</th>
+                            <th>پسائي فِي</th>
+                            <th>اٽو تاريخ</th>
+                            <th>وٺيل اٽو</th>
+                            <th>باقي اٽو</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerList">
+                        <!-- JavaScript سان ڀريو ويندو -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- خرچ جو ٽيب -->
+        <div id="expense" class="tab-content">
+            <h2>خرچ شامل ڪريو</h2>
+            <div class="form-group">
+                <label for="expenseType">خرچ جو قسم:</label>
+                <select id="expenseType">
+                    <option value="پسائي ڪٽوتي">پسائي ڪٽوتي (300 روپيا)</option>
+                    <option value="بجلي">بجلي</option>
+                    <option value="چانهه">چانهه</option>
+                    <option value="ملازم">ملازم</option>
+                    <option value="ٻيو">ٻيو</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="amount">رقم (روپيا):</label>
+                <input type="number" id="amount" placeholder="خرچ جي رقم">
+            </div>
+            <div class="form-group">
+                <label for="details">تفصيل:</label>
+                <input type="text" id="details" placeholder="وڌيڪ تفصيل">
+            </div>
+            <button onclick="addExpense()">خرچ محفوظ ڪريو</button>
+            
+            <h2>خرچ جو ريڪارڊ</h2>
+            <div style="overflow-x:auto;">
+                <table id="expenseTable">
+                    <thead>
+                        <tr>
+                            <th>تاريخ</th>
+                            <th>قس</th>
+                            <th>رقم</th>
+                            <th>تفصيل</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenseList">
+                        <!-- JavaScript سان ڀريو ويندو -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- ريپورٽ جو ٽيب -->
+        <div id="report" class="tab-content">
+            <h2>فائدو/نقصان جو ريپورٽ</h2>
+            <div class="form-group">
+                <label for="fromDate">کان تاريخ:</label>
+                <input type="date" id="fromDate">
+            </div>
+            <div class="form-group">
+                <label for="toDate">تائين تاريخ:</label>
+                <input type="date" id="toDate">
+            </div>
+            <button onclick="generateReport()">ريپورٽ ڏيکاريو</button>
+            
+            <div id="reportResult" style="margin-top:20px;">
+                <!-- ريپورٽ هتي ڏيکاري ويندي -->
+            </div>
         </div>
     </div>
 
-    <!-- navigation (each panel has its own edit button) -->
-    <div class="nav-bar" id="mainNav">
-        <button class="nav-btn active" data-panel="dash"><i class="fas fa-th-large"></i> Dashboard</button>
-        <button class="nav-btn" data-panel="admission"><i class="fas fa-file-signature"></i> Admission</button>
-        <button class="nav-btn" data-panel="staff"><i class="fas fa-chalkboard-user"></i> Staff</button>
-        <button class="nav-btn" data-panel="notice"><i class="fas fa-bullhorn"></i> Notice</button>
-        <button class="nav-btn" data-panel="events"><i class="fas fa-calendar-check"></i> Events</button>
-        <button class="nav-btn" data-panel="slc"><i class="fas fa-certificate"></i> SLC</button>
-        <button class="nav-btn" data-panel="timetable"><i class="fas fa-table"></i> Timetable</button>
-        <button class="nav-btn" data-panel="classdata"><i class="fas fa-layer-group"></i> Class data</button>
-        <button class="nav-btn" data-panel="students"><i class="fas fa-upload"></i> Students</button>
-    </div>
+    <script>
+        // ڊيٽا اسٽوريج
+        let customers = JSON.parse(localStorage.getItem('customers')) || [];
+        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+        let profits = JSON.parse(localStorage.getItem('profits')) || [];
 
-    ================================================================= --%}
-    <!-- DASHBOARD PANEL (zero students, no assumed dates) -->
-    <div id="dash" class="panel active-panel">
-        <div class="edit-controls">
-            <button class="edit-btn" onclick="alert('Edit dashboard: you can modify stats, notices etc.')"><i class="fas fa-pen"></i> Edit dashboard</button>
-            <button class="save-btn" onclick="alert('Changes saved (demo)')"><i class="fas fa-check"></i> Save</button>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2 class="card-title"><i class="fas fa-gauge-high"></i> Dashboard</h2>
-            <span class="filename-tip"><i class="fab fa-github"></i> govt-hss-sindhri.html</span>
-        </div>
-        <!-- zero students as required -->
-        <div class="card zero-badge">
-            <i class="fas fa-database fa-3x" style="color:#9fb3d0;"></i>
-            <h3 style="margin: 16px 0;">Total students: 0 (no admission entries yet)</h3>
-            <p>Use admission form to add students. All class counts are zero.</p>
-            <button class="edit-btn" style="margin-top:14px;" onclick="switchPanel('admission')"><i class="fas fa-arrow-right"></i> Go to admission</button>
-        </div>
-        <div class="grid-2">
-            <div class="card"><i class="fas fa-chart-pie"></i> No data to display — edit to add content.</div>
-            <div class="card"><i class="fas fa-clock"></i> All dates can be edited via edit button.</div>
-        </div>
-    </div>
-
-    <!-- ADMISSION PANEL (fee system removed) -->
-    <div id="admission" class="panel">
-        <div class="edit-controls">
-            <button class="edit-btn" onclick="alert('Edit admission form fields or validation')"><i class="fas fa-pen"></i> Edit form</button>
-            <button class="save-btn" onclick="alert('Form settings saved')"><i class="fas fa-check"></i> Save</button>
-        </div>
-        <h2 class="card-title"><i class="fas fa-pen-to-square"></i> Admission form (fee removed)</h2>
-        <div class="card">
-            <form id="admissionForm" onsubmit="event.preventDefault(); alert('Admission recorded (demo). Student count remains zero until you add data.');">
-                <div class="grid-2">
-                    <div><label>Full name</label><input class="form-control" placeholder="e.g. Muhammad Ali"></div>
-                    <div><label>Father/Guardian name</label><input class="form-control" placeholder="Mir Muhammad"></div>
-                    <div><label>Caste</label><input class="form-control" placeholder="Siddiqi"></div>
-                    <div><label>Date of Birth (fig)</label><input type="date" class="form-control"></div>
-                    <div><label>DOB (words)</label><input class="form-control" placeholder="twentieth May 2012"></div>
-                    <div><label>Place of birth</label><input class="form-control" value="Sindhri"></div>
-                    <div><label>Gender</label><select class="form-control"><option>Male</option><option>Female</option></select></div>
-                    <div><label>Religion</label><select class="form-control"><option>Islam</option><option>Other</option></select></div>
-                    <div><label>Class for admission</label><select class="form-control"><option>Pre-School</option><option>I</option><option>II</option><option>III</option><option>IV</option><option>V</option><option>VI</option><option>VII</option><option>VIII</option><option>IX</option><option>X</option><option>XI</option><option>XII</option></select></div>
-                    <div><label>Last school</label><input class="form-control" placeholder="Govt Primary"></div>
-                    <div><label>Class attending now</label><input class="form-control" placeholder="V"></div>
-                    <div><label>Address</label><input class="form-control" placeholder="Ward 3"></div>
-                    <div><label>Taluka</label><input class="form-control" value="Sindhri"></div>
-                    <div><label>District</label><input class="form-control" value="Mirpur Khas"></div>
-                    <div><label>Mobile No</label><input class="form-control" placeholder="03xx-xxxxxxx"></div>
-                    <div><label>WhatsApp No</label><input class="form-control" placeholder="03xx-xxxxxxx"></div>
-                </div>
-                <!-- fee field entirely omitted -->
-                <button type="submit" class="edit-btn" style="background:#1d4e7c; color:white; border:none; margin-top:20px;"><i class="fas fa-check"></i> Submit admission</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- STAFF PANEL (with search and edit) -->
-    <div id="staff" class="panel">
-        <div class="edit-controls">
-            <button class="edit-btn" onclick="alert('Edit staff list, add photo upload')"><i class="fas fa-pen"></i> Edit staff</button>
-            <button class="save-btn" onclick="alert('staff data saved')"><i class="fas fa-check"></i> Save</button>
-        </div>
-        <h2 class="card-title"><i class="fas fa-people-group"></i> Staff directory</h2>
-        <div class="search-box" style="display:flex; align-items:center; background:#f2f7fd; border-radius:60px; padding:4px 4px 4px 20px; max-width:400px; margin-bottom:30px;">
-            <i class="fas fa-search" style="color:#1e4a76;"></i>
-            <input type="text" id="staffSearch" placeholder="Search by name..." style="border:none; background:transparent; padding:14px; flex:1;">
-            <button id="searchBtnStaff" style="background:#1e4a76; border:none; color:white; padding:12px 26px; border-radius:50px;">Go</button>
-        </div>
-        <div class="staff-grid" id="staffContainer"></div>
-    </div>
-
-    <!-- NOTICE BOARD (edit button to change notices) -->
-    <div id="notice" class="panel">
-        <div class="edit-controls">
-            <button class="edit-btn" onclick="editNotices()"><i class="fas fa-pen"></i> Edit notices</button>
-            <button class="save-btn" onclick="saveNotices()"><i class="fas fa-check"></i> Save</button>
-        </div>
-        <h2 class="card-title"><i class="fas fa-bell"></i> Notice board</h2>
-        <div id="noticeContainer">
-            <div class="notice-item"><i class="fas fa-calendar"></i> School re-opening after holidays: edit to set date</div>
-            <div class="notice-item"><i class="fas fa-megaphone"></i> Parent teacher meeting: click edit to schedule</div>
-        </div>
-        <p class="edit-btn" style="display:inline-block; margin-top:12px;" onclick="editNotices()"><i class="fas fa-plus-circle"></i> Add notice</p>
-    </div>
-
-    <!-- EVENTS PANEL -->
-    <div id="events" class="panel">
-        <div class="edit-controls"><button class="edit-btn" onclick="alert('Edit events')">Edit events</button><button class="save-btn">Save</button></div>
-        <h2 class="card-title"><i class="fas fa-star"></i> Events & activities</h2>
-        <div class="card">Sports day: edit to set date<br> Qirat competition: edit to set date</div>
-    </div>
-
-    <!-- SLC PANEL (school leaving certificate) -->
-    <div id="slc" class="panel">
-        <div class="edit-controls"><button class="edit-btn" onclick="alert('Edit certificate template')">Edit SLC</button><button class="save-btn">Save</button></div>
-        <h2 class="card-title"><i class="fas fa-scroll"></i> School leaving certificate</h2>
-        <div class="card" style="background:#fffef7;">[Certificate will be generated from admission data. Edit to modify layout.]</div>
-    </div>
-
-    <!-- TIMETABLE PANEL -->
-    <div id="timetable" class="panel">
-        <div class="edit-controls"><button class="edit-btn" onclick="alert('Upload excel or edit timetable')">Edit timetable</button><button class="save-btn">Save</button></div>
-        <h2 class="card-title"><i class="fas fa-table"></i> Timetable (Excel upload)</h2>
-        <div class="card"><i class="fas fa-file-excel"></i> Upload via edit button – slide view available.</div>
-    </div>
-
-    <!-- CLASS DATA PANEL (zero students) -->
-    <div id="classdata" class="panel">
-        <div class="edit-controls"><button class="edit-btn" onclick="alert('Edit class wise data')">Edit class data</button><button class="save-btn">Save</button></div>
-        <h2 class="card-title"><i class="fas fa-people-arrows"></i> Class wise data (pre-school to XII)</h2>
-        <div class="card zero-badge">All classes: 0 boys, 0 girls (awaiting admission entries)</div>
-    </div>
-
-    <!-- STUDENTS UPLOAD -->
-    <div id="students" class="panel">
-        <div class="edit-controls"><button class="edit-btn" onclick="alert('Enable student upload facility')">Edit upload</button><button class="save-btn">Save</button></div>
-        <h2 class="card-title"><i class="fas fa-cloud-upload-alt"></i> Student data upload</h2>
-        <div class="card">Zero records. Use upload or admission form.</div>
-    </div>
-</div>
-
-<!-- staff data from list (with HM highlight) -->
-<script>
-    // staff list (exactly as first version)
-    const staff = [
-        { name: "Mr. Mir Muhammad Siddiqi", post: "Head Master", hm: true },
-        { name: "Mr. Aamir Ali", post: "JEST F.A" }, { name: "Mr. M. Akram", post: "HST" },
-        { name: "Mr. Muhammad Siddique", post: "HST" }, { name: "Ms Fareha Bangash", post: "SST" },
-        { name: "Mr. Nazeer Ali", post: "JST" }, { name: "Mr. Khushhal", post: "JEST" },
-        { name: "Mr. Hemoon", post: "JEST" }, { name: "Mr. Sadam Hussain", post: "JEST" },
-        { name: "Mr. Dileep Kumar", post: "Staff" }, { name: "Mr. Abdul Qayoom", post: "JEST" },
-        { name: "Mr. Qari Hafiz M. Saleem", post: "OT" }, { name: "Mr. Imran Khan", post: "OT" },
-        { name: "Mr. Bilawal", post: "AWI" }, { name: "Mr. Aashiq Ali", post: "Naib Qasid" }
-    ];
-
-    function renderStaff(filter = '') {
-        const cont = document.getElementById('staffContainer');
-        if (!cont) return;
-        let filtered = staff.filter(s => s.name.toLowerCase().includes(filter.toLowerCase()) || s.post.toLowerCase().includes(filter.toLowerCase()));
-        let html = '';
-        filtered.forEach(s => {
-            html += `<div class="staff-card ${s.hm ? 'hm-highlight' : ''}">
-                <div class="staff-img"><i class="fas fa-user"></i></div>
-                <div class="staff-name">${s.name}</div>
-                <div class="staff-post">${s.post}</div>
-            </div>`;
-        });
-        cont.innerHTML = html || '<div class="card">No matching staff</div>';
-    }
-
-    document.getElementById('searchBtnStaff')?.addEventListener('click', ()=>{
-        let val = document.getElementById('staffSearch')?.value || '';
-        renderStaff(val);
-    });
-    renderStaff();
-
-    // navigation switching (same robust method)
-    const panels = document.querySelectorAll('.panel');
-    const navBtns = document.querySelectorAll('.nav-btn');
-    function switchPanel(panelId) {
-        panels.forEach(p => p.classList.remove('active-panel'));
-        navBtns.forEach(b => b.classList.remove('active'));
-        const target = document.getElementById(panelId);
-        if (target) target.classList.add('active-panel');
-        const activeBtn = Array.from(navBtns).find(btn => btn.dataset.panel === panelId);
-        if (activeBtn) activeBtn.classList.add('active');
-    }
-    navBtns.forEach(btn => {
-        btn.addEventListener('click', () => switchPanel(btn.dataset.panel));
-    });
-    window.switchPanel = switchPanel;
-
-    // edit functions for notice (no hardcoded dates)
-    function editNotices() {
-        let container = document.getElementById('noticeContainer');
-        let items = container.querySelectorAll('.notice-item');
-        let newText = prompt('Edit notice text (first notice):', items[0]?.innerText.replace(/<.*?>/g,'') || '');
-        if (newText) {
-            items[0].innerHTML = '<i class="fas fa-calendar"></i> ' + newText;
+        // ٽيب تبديل ڪرڻ لاءِ فنڪشن
+        function openTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(tabName).classList.add('active');
+            document.querySelector(`.tab[onclick="openTab('${tabName}')"]`).classList.add('active');
         }
-    }
-    function saveNotices() { alert('Notice changes saved (demo).'); }
-    window.editNotices = editNotices; window.saveNotices = saveNotices;
 
-    // no random dates anywhere – all placeholders, controlled by edit buttons.
-</script>
+        // گيراھڪ شامل ڪرڻ
+        function addCustomer() {
+            const name = document.getElementById('name').value;
+            const contact = document.getElementById('contact').value;
+            const wheatDate = document.getElementById('wheatDate').value;
+            const wheat = parseFloat(document.getElementById('wheat').value);
+            
+            if (!name || !contact || !wheatDate || !wheat) {
+                alert('مهرباني ڪري سڀ ڪٽنب ڀريو!');
+                return;
+            }
+            
+            const newCustomer = {
+                id: customers.length + 1,
+                name,
+                contact,
+                wheatDate,
+                wheat,
+                grindingFee: 300, // پسائي فِي
+                aataDate: '',
+                aataTaken: 0,
+                balance: wheat,
+                date: new Date().toLocaleDateString('en-GB')
+            };
+            
+            customers.push(newCustomer);
+            localStorage.setItem('customers', JSON.stringify(customers));
+            updateCustomerList();
+            
+            // پسائي فِي کي خرچ ۾ شامل ڪريو
+            const newExpense = {
+                date: new Date().toLocaleDateString('en-GB'),
+                type: "پسائي ڪٽوتي",
+                amount: 300,
+                details: `${name} جي ڪڻڪ جي پسائي`
+            };
+            expenses.push(newExpense);
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+            updateExpenseList();
+            
+            // آمدني رڪارڊ ڪريو (300 روپيا في گيراھڪ)
+            const newProfit = {
+                date: new Date().toLocaleDateString('en-GB'),
+                income: 300,
+                expense: 0,
+                profit: 300
+            };
+            profits.push(newProfit);
+            localStorage.setItem('profits', JSON.stringify(profits));
+            
+            alert('گيراھڪ ڪاميابي سان شامل ٿيو!');
+            document.getElementById('name').value = '';
+            document.getElementById('contact').value = '';
+            document.getElementById('wheat').value = '';
+        }
 
-<!-- basic style for form-controls -->
-<style>
-    .form-control { width:100%; padding:14px 18px; border:2px solid #dbe4f0; border-radius:40px; font-size:1rem; background:#ffffff; }
-    .form-control:focus { border-color:#f6b83e; outline:none; }
-    .search-box input:focus { outline: none; }
-</style>
+        // اٽو واپس وٺڻ
+        function takeAata() {
+            const customerId = parseInt(document.getElementById('customerId').value) - 1;
+            const aataDate = document.getElementById('aataDate').value;
+            const aataTaken = parseFloat(document.getElementById('aataTaken').value);
+            
+            if (customerId < 0 || customerId >= customers.length || !aataDate || !aataTaken) {
+                alert('غلط گيراھڪ ID يا ڪٽنب!');
+                return;
+            }
+            
+            if (aataTaken > customers[customerId].balance) {
+                alert('گيراھڪ وٽ ايتري مقدار ۾ اٽو موجود ناهي!');
+                return;
+            }
+            
+            customers[customerId].aataDate = aataDate;
+            customers[customerId].aataTaken += aataTaken;
+            customers[customerId].balance -= aataTaken;
+            localStorage.setItem('customers', JSON.stringify(customers));
+            updateCustomerList();
+            
+            alert(`${aataTaken}ڪلو اٽو رڪارڊ ٿيل! باقي: ${customers[customerId].balance}ڪلو`);
+            document.getElementById('customerId').value = '';
+            document.getElementById('aataTaken').value = '';
+        }
 
-<footer style="max-width:1500px; margin:16px auto 0; padding-left:20px;">
-    <i class="fas fa-code-branch"></i> Github: index.html (govt-hss-enhanced.html) – All panels include edit button, no hardcoded dates, zero students.
-</footer>
+        // خرچ شامل ڪرڻ
+        function addExpense() {
+            const type = document.getElementById('expenseType').value;
+            let amount = parseFloat(document.getElementById('amount').value);
+            const details = document.getElementById('details').value;
+            
+            if (type === "پسائي ڪٽوتي") {
+                amount = 300; // خود بخود 300 روپيا ڀريو
+                document.getElementById('amount').value = 300;
+            }
+            
+            if (!amount) {
+                alert('مهرباني ڪري رقم داخل ڪريو!');
+                return;
+            }
+            
+            const newExpense = {
+                date: new Date().toLocaleDateString('en-GB'),
+                type,
+                amount,
+                details
+            };
+            
+            expenses.push(newExpense);
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+            updateExpenseList();
+            
+            // خرچ رڪارڊ ڪريو
+            const newProfit = {
+                date: new Date().toLocaleDateString('en-GB'),
+                income: 0,
+                expense: amount,
+                profit: -amount
+            };
+            profits.push(newProfit);
+            localStorage.setItem('profits', JSON.stringify(profits));
+            
+            alert('خرچ ڪاميابي سان محفوظ ٿيل!');
+            document.getElementById('amount').value = '';
+            document.getElementById('details').value = '';
+        }
+
+        // گيراھڪن جي فھرست کي اپڊيٽ ڪرڻ
+        function updateCustomerList() {
+            const table = document.getElementById('customerList');
+            table.innerHTML = '';
+            
+            customers.forEach(customer => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${customer.id}</td>
+                    <td>${customer.name}</td>
+                    <td>${customer.contact}</td>
+                    <td>${customer.wheatDate}</td>
+                    <td>${customer.wheat}</td>
+                    <td>${customer.grindingFee}</td>
+                    <td>${customer.aataDate || '-'}</td>
+                    <td>${customer.aataTaken}</td>
+                    <td>${customer.balance}</td>
+                `;
+                table.appendChild(row);
+            });
+        }
+
+        // خرچ جي فھرست کي اپڊيٽ ڪرڻ
+        function updateExpenseList() {
+            const table = document.getElementById('expenseList');
+            table.innerHTML = '';
+            
+            expenses.forEach(expense => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${expense.date}</td>
+                    <td>${expense.type}</td>
+                    <td>${expense.amount}</td>
+                    <td>${expense.details}</td>
+                `;
+                table.appendChild(row);
+            });
+        }
+
+        // ريپورٽ ٺاهڻ
+        function generateReport() {
+            const fromDate = document.getElementById('fromDate').value;
+            const toDate = document.getElementById('toDate').value;
+            
+            let filteredProfits = profits;
+            
+            if (fromDate && toDate) {
+                const startDate = new Date(fromDate);
+                const endDate = new Date(toDate);
+                
+                filteredProfits = profits.filter(p => {
+                    const pDate = new Date(p.date.split('/').reverse().join('-'));
+                    return pDate >= startDate && pDate <= endDate;
+                });
+            }
+            
+            let totalIncome = 0;
+            let totalExpense = 0;
+            let totalProfit = 0;
+            
+            filteredProfits.forEach(p => {
+                totalIncome += p.income;
+                totalExpense += p.expense;
+                totalProfit += p.profit;
+            });
+            
+            const reportDiv = document.getElementById('reportResult');
+            reportDiv.innerHTML = `
+                <h3>ريپورٽ:</h3>
+                <p><strong>مدت:</strong> ${fromDate || 'شروع'} کان ${toDate || 'هاڻي'}</p>
+                <p><strong>ڪل آمدني:</strong> ${totalIncome} روپيا</p>
+                <p><strong>ڪل خرچ:</strong> ${totalExpense} روپيا</p>
+                <p><strong>ڪل فائدو:</strong> <span style="color:${totalProfit >= 0 ? 'green' : 'red'}">${totalProfit} روپيا</span></p>
+                
+                <h4>گيراھڪن جو مجموعو:</h4>
+                <p>ڪل گيراھڪ: ${customers.length}</p>
+                <p>ڪل ڪڻڪ: ${customers.reduce((sum, c) => sum + c.wheat, 0)} ڪلو</p>
+                <p>ڪل اٽو وٺيل: ${customers.reduce((sum, c) => sum + c.aataTaken, 0)} ڪلو</p>
+            `;
+        }
+
+        // پهريان کان موجود ڊيٽا ڏيکاريو
+        updateCustomerList();
+        updateExpenseList();
+        
+        // اڄ جي تاريخ ڀريو
+        document.getElementById('wheatDate').valueAsDate = new Date();
+        document.getElementById('aataDate').valueAsDate = new Date();
+        document.getElementById('fromDate').valueAsDate = new Date();
+        document.getElementById('toDate').valueAsDate = new Date();
+    </script>
 </body>
 </html>
